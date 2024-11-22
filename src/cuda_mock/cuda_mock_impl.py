@@ -169,7 +169,10 @@ class __GpuRuntimeProfiler:
 
         data = []
         for it in time_list:
-            data.append((it.key, it.cuda_time_total_str))
+            if hasattr(it, "cuda_time_total_str"):
+                data.append((it.key, it.cuda_time_total_str))
+            else:
+                data.append((it.key, it.device_time_total_str)) #rename cuda_time_total_str to device_time_total_str in 2.4 or 2.3
             #print(it)
             #print(it.key)
             #print(it.self_cuda_time_total_str)
